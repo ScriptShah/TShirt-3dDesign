@@ -12,7 +12,67 @@ import { fadeAnimation, slideAnimation} from '../config/motion';
 import{ AiPicker, ColorPicker, CustomButton,FilePicker,Tab} from '../components';
 
 const Customizer = () => {
+
+  //states
   const snap = useSnapshot(state);
+  const  [file, setFile] = useState('');
+  const  [prompt, setprompt] = useState('');
+  const  [generatingImg, setgeneratingImg] = useState(false);
+  const [activeEditorTab, setactiveEditorTab] = useState('');
+  const [activeFilterTab, setactiveFilterTab] = useState({
+    logoShirt: true,
+    stylishShirt: false,
+  })
+
+  // show tab content depending on the activeTab
+  const generateTabContent = () => {
+    switch (activeEditorTab) {
+      case 'colorpicker':
+        return <ColorPicker/>
+      case 'filepicker':
+        return <FilePicker
+          file={file}
+          setFile = {setFile}
+          readFile={readFile}
+        />  
+      case 'aipicker':
+        return <AiPicker/>
+      default:
+        return null;
+    }
+  }
+
+  const handleDecals = (type, result) => {
+    const decalType = DecalTypes[type];
+    
+    state[decalType.stateProperty] = result;
+
+    if(!activeFilterTab[decalType.FilterTabs]) {
+      handleActiveFilterTab(decalType.filterTab)
+    }
+  }
+
+  const handleActiveFilterTab = (tabName) => {
+    switch (tabName) {
+      case 'logoShirt':
+        state.isLogoTexture = !activeFilterTab[tabName];
+        break;
+      case 'stylishShirt':
+        state.isFullTexture = !activeFilterTab[tabName];     
+      default:
+        state.isLogoTexture = true;
+        state.isFullTexture = false;
+    }
+  }
+
+  const readFile = (type) => {
+    reader(file)
+      .then((result) => {
+          handleDecals(type, result);
+          setactiveFilterTab("");
+      })
+  }
+
 
   return (
     <AnimatePresence>
@@ -30,10 +90,12 @@ const Customizer = () => {
                       key={tab.name}
                       tab={tab}
                       handleClick={() => {
-
+                          setactiveEditorTab(tab.name)
                       }}
                     />
                   ))}
+
+                  {generateTabContent()}
                 </div>
               </div>
             </motion.div>
