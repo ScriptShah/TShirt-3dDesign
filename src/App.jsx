@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 function App() {
 
   return (
-    <main className="app transition-all ease-in disable-text-selection">
+    <main className="app transition-all ease-in disable-text-selection scroll-disable">
       <Home/>
       <Canvas/>
       <Customizer/>

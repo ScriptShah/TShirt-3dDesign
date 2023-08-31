@@ -98,3 +98,8 @@ input[type="file"] {
   -ms-user-select: none; /* IE*/
   user-select: none; /* Standard syntax */
 }
+
+.scroll-disable {
+  overflow-y: none;
+  overflow-x: none;
+}
