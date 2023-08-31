@@ -101,4 +101,5 @@ input[type="file"] {
 
 .scroll-disable {
   overflow: hidden;
+  position: fixed;
 }
