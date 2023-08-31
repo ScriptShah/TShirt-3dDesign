@@ -7,29 +7,27 @@ import Backdrop from './Backdrop';
 import CameraRig from './CameraRig';
 
 const CanvasModel = () => {
+  const canvasRef = useRef(null);
 
-  
   return (
     <Canvas
       shadows
-      camera={{position:[0, 0, 0], fov: 25}}
-      gl={{ preserveDrawingBuffer: true}}
-      ref={Canvas}
+      camera={{ position: [0, 0, 0], fov: 25 }}
+      gl={{ preserveDrawingBuffer: true }}
+      ref={canvasRef}
       className='w-full max-w-full h-full transition-all ease-in'
     >
-      <ambientLight intensity={0.5}/>
-      <Environment preset='city'/>
-      
-      
-      
+      <ambientLight intensity={0.5} />
+      <Environment preset='city' />
+
       <CameraRig>
-        <Backdrop/>
+        <Backdrop />
         <Center>
-          <Shirt/>
+          <Shirt />
         </Center>
       </CameraRig>
     </Canvas>
-  )
-}
+  );
+};
 
-export default CanvasModel
+export default CanvasModel;

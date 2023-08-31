@@ -7,6 +7,7 @@ import { color } from 'framer-motion';
 
 const ColorPicker = () => {
   const snap = useSnapshot(state);
+  
   return (
     <div className='absolute left-full ml-3'>
       <SketchPicker
@@ -28,6 +29,9 @@ const ColorPicker = () => {
         ]}
         onChange={(color) => state.color = color.hex}
       />
+
+
+
       
     </div>
   )
